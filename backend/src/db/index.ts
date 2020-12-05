@@ -28,8 +28,28 @@ export const getTodos = async (userId) => {
   return items
 }
 
-export const updateTodo = () => {
+export const updateTodo = async(userId, todoId, todo) => {
+  const params = {
+    TableName: todosTable,
+    Key: {
+      userId,
+      todoId
+    },
+    ExpressionAttributeNames: {
+      "#n": "name", 
+      "#dd": "dueDate",
+      "#d": "done"
+     }, 
+    ExpressionAttributeValues: {
+      ":n": todo.name,
+      ":dd": todo.dueDate,
+      ":d": todo.done
+    },
+    UpdateExpression: "SET #n = :n, #dd= :dd, #d= :d",
+    ReturnValues: "UPDATED_NEW"
+  };
 
+  await docClient.update(params).promise();
 }
 
 export const deleteTodo = () => {
