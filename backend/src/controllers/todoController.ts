@@ -45,6 +45,8 @@ export async function updateTodo(
   await db.updateTodo(userId, todoId, updateTodoRequest)
 }
 
-export const deleteTodo = () => {
-  
+export const deleteTodo = async (todoId, jwtToken) => {
+  const userId = parseUserId(jwtToken)
+
+  await db.deleteTodo(userId, todoId)
 }

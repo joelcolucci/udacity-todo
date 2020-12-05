@@ -52,6 +52,14 @@ export const updateTodo = async(userId, todoId, todo) => {
   await docClient.update(params).promise();
 }
 
-export const deleteTodo = () => {
+export const deleteTodo = async (userId, todoId) => {
+  const params = {
+    Key: {
+      userId,
+      todoId
+     }, 
+    TableName: todosTable,
+  };
 
+  await docClient.delete(params).promise();
 }
