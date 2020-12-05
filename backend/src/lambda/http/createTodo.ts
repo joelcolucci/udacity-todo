@@ -15,7 +15,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   console.log('Processing event: ', event)
 
   const userId = getUserId(event)
-
   const todoId = uuid.v4()
 
   const todo: CreateTodoRequest = JSON.parse(event.body)
@@ -29,10 +28,12 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     done: false,
   }
 
-  const newItem = await docClient.put({
+  const params = {
     TableName: todosTable,
     Item: newTodo
-  }).promise()
+  }
+
+  const newItem = await docClient.put(params).promise()
 
   return {
     statusCode: 201,
