@@ -12,11 +12,23 @@ export const createTodo = async (todo) => {
   await docClient.put(params).promise()
 }
 
-export const updateTodo = () => {
+export const getTodos = async (userId) => {
+  const params = {
+    ExpressionAttributeValues: {
+     ":u": userId
+    }, 
+    KeyConditionExpression: "userId = :u", 
+    TableName: todosTable
+   };
 
+  const result = await docClient.query(params).promise()
+
+  const items = result.Items
+
+  return items
 }
 
-export const getTodos = () => {
+export const updateTodo = () => {
 
 }
 

@@ -26,11 +26,15 @@ export async function createTodo(
   return newTodo
 }
 
-export const updateTodo = () => {
+export const getTodos = async (jwtToken) => {
+  const userId = parseUserId(jwtToken)
 
+  const todos = await db.getTodos(userId)
+
+  return todos
 }
 
-export const getTodos = () => {
+export async function updateTodo() {
 
 }
 
