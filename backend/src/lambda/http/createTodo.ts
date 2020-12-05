@@ -33,7 +33,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     Item: newTodo
   }
 
-  const newItem = await docClient.put(params).promise()
+  await docClient.put(params).promise()
 
   return {
     statusCode: 201,
@@ -42,7 +42,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       'Access-Control-Allow-Credentials': true
     },
     body: JSON.stringify({
-      newItem
+      newTodo
     })
   }
 }
