@@ -4,9 +4,12 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } f
 
 import { deleteTodo } from '../../controllers/todoController'
 import { getJwtTokenFromEvent } from '../utils'
+import { createLogger } from '../../utils/logger'
+
+const logger = createLogger('todo')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  console.log('Processing event: ', event)
+  logger.info('Processing event: ', event)
 
   const jwtToken = getJwtTokenFromEvent(event)
   const todoId = event.pathParameters.todoId
